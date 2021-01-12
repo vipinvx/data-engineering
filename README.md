@@ -15,7 +15,8 @@ These simulate activity logs from a music streaming app based on specified confi
 -----------------------------------------------------------------------------------------
 Fact Table
 ---------------------
-songplays- records in log data associated with song plays i
+songplays- records in log data associated with song plays 
+
 Columns
 -----------
 songplay_id, start_time, user_id, level, song_id, artist_id, session_id, location, user_agent
