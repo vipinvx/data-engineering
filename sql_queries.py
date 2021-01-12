@@ -8,16 +8,15 @@ time_table_drop = "drop table if exists time;"
 
 # CREATE TABLES
 
-songplay_table_create = ("""create table if not exists songplays ( songplay_id SERIAL PRIMARY KEY , start_time timestamp, user_id text, level text, song_id text, artist_id text, session_id int, location text, user_agent text)
+songplay_table_create = ("""create table if not exists songplays ( songplay_id SERIAL PRIMARY KEY , start_time timestamp, user_id text not null , level text, song_id text, artist_id text, session_id int, location text, user_agent text)
 """)
 
-user_table_create = ("""create table if not exists users(user_id text, first_name text, last_name text, gender text, level text)
+user_table_create = ("""create table if not exists users(user_id text, first_name text, last_name text, gender text, level text, PRIMARY KEY (user_id))""")
+
+song_table_create = ("""create table if not exists songs (song_id  text primary key,  title text, artist_id text, year int, duration numeric)
 """)
 
-song_table_create = ("""create table if not exists songs (song_id text, title text, artist_id text, year int, duration numeric)
-""")
-
-artist_table_create = ("""create table if not exists artists (artist_id text, name text, location text, latitude numeric, longitude numeric)
+artist_table_create = ("""create table if not exists artists (artist_id text primary key, name text, location text, latitude numeric, longitude numeric)
 """)
 
 time_table_create = ("""create table if not exists time (start_time timestamp, hour int, day int, week int, month int, year int, weekday int)
@@ -28,9 +27,9 @@ time_table_create = ("""create table if not exists time (start_time timestamp, h
 songplay_table_insert = ("""insert into songplays(start_time , user_id , level , song_id , artist_id , session_id , location , user_agent ) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)
 """)
 
-user_table_insert = ("""insert into users (user_id, first_name, last_name, gender, level) values (%s,%s,%s,%s,%s) """)
-song_table_insert = ("""insert into songs (song_id, title,artist_id, year, duration) values (%s,%s,%s,%s,%s)""")
-artist_table_insert = ("""insert into artists (artist_id, name, location, latitude, longitude) values (%s,%s,%s,%s,%s) """)
+user_table_insert = ("""insert into users (user_id, first_name, last_name, gender, level) values (%s,%s,%s,%s,%s) on conflict (user_id) do update set level = EXCLUDED.level """)
+song_table_insert = ("""insert into songs (song_id, title,artist_id, year, duration) values (%s,%s,%s,%s,%s) on conflict do nothing""")
+artist_table_insert = ("""insert into artists (artist_id, name, location, latitude, longitude) values (%s,%s,%s,%s,%s) on conflict do nothing """)
 time_table_insert = ("""insert into time (start_time, hour, day, week, month, year, weekday) values (%s,%s,%s,%s,%s,%s,%s)""")
 
 # FIND SONGS
