@@ -1,7 +1,7 @@
 Project : Data modelling using postgres
 ----------------------------------------------------------------------------------------------------------------------------
 
-The objective of this project is to process the song data set and log data set and store them in the fact and diremtion tables
+The objective of this project is to process the song data set and log data set and store them in the fact and dimention tables
 
 Song Dataset
 ------------------
