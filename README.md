@@ -57,6 +57,8 @@ How to run the code
 1) Run create_tables.py in the terminal .This  will create the tables required for this process
 2) Run etl.py to insert data in tables
 
+Processing example
+------------------------
 ![](Program%20execution.JPG)
 
 end
