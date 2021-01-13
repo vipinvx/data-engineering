@@ -47,10 +47,10 @@ time_table_create = ("""create table if not exists time (
 
 songplay_table_create = ("""create table if not exists songplays(
                             songplay_id SERIAL PRIMARY KEY ,
-                            start_time timestamp references time(start_time), 
-                            user_id text not null references users(user_id) , 
+                            start_time timestamp references time(start_time) not null, 
+                            user_id text not null references users(user_id) not null, 
                             level text, 
-                            song_id text references songs(song_id) , 
+                            song_id text references songs(song_id), 
                             artist_id text references artists(artist_id), 
                             session_id int,
                             location text , 
