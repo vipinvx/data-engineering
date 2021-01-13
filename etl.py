@@ -7,7 +7,14 @@ from sql_queries import *
 
 def process_song_file(cur, filepath):
     # open song file
-    
+    '''
+    This function accepts the cursor and file path and processes the data for song dataset
+
+            Parameters:
+                    filepath: File path from the calling function
+                    cur: cursor obtained from the active connection to DB
+
+    '''
     
     df = pd.read_json(filepath, lines=True)
 
@@ -23,8 +30,16 @@ def process_song_file(cur, filepath):
 
 
 def process_log_file(cur, filepath):
-    # open log file
-    
+      
+    '''
+      This function accepts the cursor and file path and processes the data for log dataset
+
+            Parameters:
+                    filepath: File path from the calling function
+                    cur: cursor obtained from the active connection to DB
+
+    '''
+
     
     df = pd.read_json(filepath, lines=True)
 
@@ -73,9 +88,29 @@ def process_log_file(cur, filepath):
 
 
 def process_data(cur, conn, filepath, func):
-    # get all files matching extension from directory
+    '''
+    This function reads all *.json files from the specified path
+    and calls process_song_file or process_log_file functions based on
+    the parameter func received from the main function
     
+    It also displayes the number of files processed from total files present in the table 
     
+            Parameters:
+            
+                    cunn: Active postgres connection
+                    
+                    cur: Cursor obtained from the active connection to DB
+                    
+                    filepath:Data folder path received from main function
+                    
+                    func:Function to be called
+                    
+            Return Values:
+            
+                    Nil
+
+    ''' 
+        
     all_files = []
     for root, dirs, files in os.walk(filepath):
         files = glob.glob(os.path.join(root, '*.json'))
@@ -95,6 +130,20 @@ def process_data(cur, conn, filepath, func):
 
 def main():
     
+    '''
+    This function creates connection to postgres database and open a cursor for further processing
+    It calles process data function with connection, cursor,foldr path and name of function to be called
+    name of function to be called (func) is used to identify the right function by process_data function
+    Once the processing is completed, we closes the connection to the DB
+    
+    Parameters:
+        
+        Nil
+        
+    Return values:
+        Nil
+    
+    '''
     
     conn = psycopg2.connect("host=127.0.0.1 dbname=sparkifydb user=student password=student")
     cur = conn.cursor()
@@ -105,4 +154,14 @@ def main():
 
 
 if __name__ == "__main__":
+    
+    '''
+    Calls main function
+    
+         Parameters:
+                     Nil
+        Return Value
+                     Nil
+    
+    '''
     main()

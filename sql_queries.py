@@ -19,7 +19,7 @@ song_table_create = ("""create table if not exists songs (song_id  text primary 
 artist_table_create = ("""create table if not exists artists (artist_id text primary key, name text, location text, latitude numeric, longitude numeric)
 """)
 
-time_table_create = ("""create table if not exists time (start_time timestamp, hour int, day int, week int, month int, year int, weekday int)
+time_table_create = ("""create table if not exists time (start_time timestamp primary key, hour int, day int, week int, month int, year int, weekday int)
 """)
 
 # INSERT RECORDS
@@ -30,7 +30,7 @@ songplay_table_insert = ("""insert into songplays(start_time , user_id , level ,
 user_table_insert = ("""insert into users (user_id, first_name, last_name, gender, level) values (%s,%s,%s,%s,%s) on conflict (user_id) do update set level = EXCLUDED.level """)
 song_table_insert = ("""insert into songs (song_id, title,artist_id, year, duration) values (%s,%s,%s,%s,%s) on conflict do nothing""")
 artist_table_insert = ("""insert into artists (artist_id, name, location, latitude, longitude) values (%s,%s,%s,%s,%s) on conflict do nothing """)
-time_table_insert = ("""insert into time (start_time, hour, day, week, month, year, weekday) values (%s,%s,%s,%s,%s,%s,%s)""")
+time_table_insert = ("""insert into time (start_time, hour, day, week, month, year, weekday) values (%s,%s,%s,%s,%s,%s,%s) on conflict do nothing""")
 
 # FIND SONGS
 
